@@ -1,6 +1,5 @@
 package me.reezy.cosmo.mmkv
 
-import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
 
