@@ -9,13 +9,30 @@
 
 ## 引入
 
+### Maven Central / Local Repository
+
 ``` groovy
 repositories {
-    maven { url "https://gitee.com/ezy/repo/raw/cosmo/"}
+    mavenCentral()
+    // 或者本地仓库
+    // maven { url "https://gitee.com/ezy/repo/raw/cosmo/"}
 }
 dependencies {
     implementation "me.reezy.cosmo:mmkv:0.7.0"
 }
+```
+
+### 从源码构建和发布
+
+``` bash
+# 构建库
+./gradlew :mmkv:build
+
+# 发布到本地 Maven 仓库
+./gradlew :mmkv:publishToMavenLocal
+
+# 发布到自定义仓库
+./gradlew :mmkv:publish
 ```
 
 ## 使用
@@ -60,6 +77,38 @@ object SomeManager {
         var nullableStringValue by mmkvNullableString()
     }
 }
+```
+
+## Maven 发布
+
+该项目支持 Maven 发布功能，包含以下发布选项：
+
+### 可用的发布任务
+
+- `publishToMavenLocal` - 发布到本地 Maven 缓存
+- `publishMavenPublicationToLocalRepository` - 发布到自定义本地仓库
+- `publish` - 发布到所有配置的仓库
+
+### 发布配置
+
+发布配置包括：
+- **Group ID**: `me.reezy.cosmo`
+- **Artifact ID**: `mmkv`
+- **Version**: `0.7.0`
+
+发布的工件包括：
+- Main JAR (库代码)
+- Sources JAR (源代码)
+- Javadoc JAR (文档)
+- POM 文件 (依赖信息)
+- Gradle Module Metadata
+
+### 自定义发布仓库
+
+可以通过在 `gradle.properties` 中配置 `cosmoRepoPath` 来指定自定义发布仓库：
+
+```
+cosmoRepoPath=https://your-maven-repo.com/repository/
 ```
 
 ## LICENSE

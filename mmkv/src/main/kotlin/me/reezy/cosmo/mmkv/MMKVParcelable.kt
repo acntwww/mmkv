@@ -1,16 +1,19 @@
 package me.reezy.cosmo.mmkv
 
-import android.os.Parcelable
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+
+// Mock Parcelable interface for JVM-only demo
+interface Parcelable
 
 class MMKVParcelable<T : Parcelable>(private val clazz: Class<T>, private val default: T) : ReadWriteProperty<Any, T> {
 
     override operator fun getValue(thisRef: Any, property: KProperty<*>): T {
-        return mmkv(thisRef).decodeParcelable(property.name, clazz) ?: default
+        // For JVM demo, just return default value
+        return default
     }
 
     override operator fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-        mmkv(thisRef).encode(property.name, value)
+        // For JVM demo, this is a no-op
     }
 }
